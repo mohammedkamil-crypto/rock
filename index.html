@@ -108,9 +108,16 @@
     </div>
 
     <script>
-      let wins = 0;
-      let losses = 0;
-      let ties = 0;
+      // Initialize scores from localStorage or set to 0 if not present
+      let wins = localStorage.getItem("wins")
+        ? parseInt(localStorage.getItem("wins"))
+        : 0;
+      let losses = localStorage.getItem("losses")
+        ? parseInt(localStorage.getItem("losses"))
+        : 0;
+      let ties = localStorage.getItem("ties")
+        ? parseInt(localStorage.getItem("ties"))
+        : 0;
 
       // Function to get the computer's choice
       function getComputerChoice() {
@@ -144,6 +151,7 @@
         const resultMessage = `You chose: ${playerChoice}\nComputer chose: ${computerChoice}\n${result}`;
         showPopup(resultMessage);
         updateCounters();
+        saveScores();
       }
 
       // Function to show the popup with the result
@@ -165,6 +173,16 @@
         document.getElementById("losses").innerText = losses;
         document.getElementById("ties").innerText = ties;
       }
+
+      // Function to save scores to localStorage
+      function saveScores() {
+        localStorage.setItem("wins", wins);
+        localStorage.setItem("losses", losses);
+        localStorage.setItem("ties", ties);
+      }
+
+      // Initialize the counters on page load
+      updateCounters();
     </script>
   </body>
 </html>
